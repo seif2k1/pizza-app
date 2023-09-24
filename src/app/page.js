@@ -4,19 +4,14 @@ import axios from "axios";
 import Link from "next/link";
 import { client, urlFor } from "../../lib/client";
 import { useEffect, useState } from "react";
-const getServerSide = async () => {
-  const query = `*[_type == "pizza"]`;
-  const pizzas = await client.fetch(query);
-  console.log(pizzas);
-};
 export default function Home() {
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
-  getServerSide();
   useEffect(() => {
     axios
       .get(
-        `https://k9cx9iux.api.sanity.io/v1/data/query/production?query=*[_type=='pizza']`
+        `
+        https://k9cx9iux.api.sanity.io/vX/data/query/production?query=*[_type=='pizza']&perspective=published`
       )
       .then((response) => setData(response))
       .catch((err) => console.log(err));
