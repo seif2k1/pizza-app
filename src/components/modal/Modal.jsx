@@ -66,7 +66,7 @@ export default function Demo({ price, setOpen, method }) {
               ...info,
               method: method,
             });
-            window.localStorage.setItem("order", orderId);
+            localStorage.setItem("order", orderId);
 
             await handler({
               id: orderId,
@@ -75,10 +75,7 @@ export default function Demo({ price, setOpen, method }) {
               address: info.address,
               method: info.method,
               phone: info.number,
-              total:
-                info.method === 0
-                  ? price
-                  : window.localStorage.getItem("total"),
+              total: info.method === 0 ? price : localStorage.getItem("total"),
             });
             router.push(`/order/${orderId}`);
           }}

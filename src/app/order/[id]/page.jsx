@@ -22,8 +22,8 @@ const page = ({ params }) => {
   });
   useEffect(() => {
     if (Data?.status > 3) {
-      window.localStorage.removeItem("order");
-      window.localStorage.removeItem("total");
+      localStorage.removeItem("order");
+      localStorage.removeItem("total");
       setBtn(true);
       setInterval(() => {
         setBtn(false);

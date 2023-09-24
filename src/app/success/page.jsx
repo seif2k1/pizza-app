@@ -9,13 +9,13 @@ const SuccessPage = () => {
   router.push("/cart"); */
   return (
     <div>
-      {window.localStorage.getItem("order") ? (
+      {localStorage.getItem("order") ? (
         <div className="h-screen w-screen flex flex-col items-center justify-center gap-10">
           <h1>
             You cant add any order because you have an order in proccessing ....
           </h1>
           <Link
-            href={`/order/${window.localStorage.getItem("order")}`}
+            href={`/order/${localStorage.getItem("order")}`}
             className="bg-black text-white duration[1.1s] py-2 px-4 rounded-2xl"
           >
             See Your Order
