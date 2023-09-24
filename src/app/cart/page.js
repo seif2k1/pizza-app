@@ -29,7 +29,6 @@ const Page = () => {
   typeof window !== "undefined" && localStorage.setItem("total", newTotal());
   const handleCheckout = async (e) => {
     e.preventDefault();
-    putTotal;
     const stripe = await stripePromise;
     const response = await fetch("http://localhost:3000/api/checkout", {
       method: "POST",
