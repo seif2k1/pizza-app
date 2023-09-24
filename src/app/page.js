@@ -4,23 +4,31 @@ import axios from "axios";
 import Link from "next/link";
 import { client, urlFor } from "../../lib/client";
 import { useEffect, useState } from "react";
+const getServerSide = async () => {
+  const query = `*[_type == "pizza"]`;
+  const pizzas = await client.fetch(query);
+  return pizzas;
+};
 export default function Home() {
   const [data, setData] = useState([]);
+  const [datas, setDatas] = useState([]);
   const [filterData, setFilterData] = useState([]);
   useEffect(() => {
-    axios
+    getServerSide()
+      .then((res) => setData(res))
+      .catch((error) => console.log(error));
+    /*  axios
       .get(
-        `
-        https://k9cx9iux.api.sanity.io/vX/data/query/production?query=*[_type=='pizza']&perspective=published`
+        `https://k9cx9iux.api.sanity.io/v2021-10-21/data/query/production?query=*%5B_type%3D%3D%22pizza%22%5D`
       )
       .then((response) => setData(response))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)); */
   }, []);
   useEffect(() => {
-    setFilterData(data?.data?.result);
-  }, [data?.data?.result]);
+    setFilterData(data);
+  }, [data]);
   const handleChange = (e) => {
-    const filter = data?.data?.result?.filter((response) =>
+    const filter = data?.filter((response) =>
       response?.name.toLowerCase().includes(e.target.value)
     );
     setFilterData(filter);
