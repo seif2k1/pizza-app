@@ -2,24 +2,32 @@
 import Image from "next/image";
 import axios from "axios";
 import Link from "next/link";
-import { urlFor } from "../../lib/client";
+import { client, urlFor } from "../../lib/client";
 import { useEffect, useState } from "react";
 export default function Home() {
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
-  useEffect(() => {
+
+  const getServerSide = async () => {
+    const query = `*[_type == "pizza"]`;
+    const pizzas = await client.fetch(query);
+    setData(pizzas);
+  };
+  getServerSide();
+  console.log(data);
+  /* useEffect(() => {
     axios
       .get(
         `https://k9cx9iux.api.sanity.io/v2021-10-21/data/query/production?query=*%5B_type%3D%3D%22pizza%22%5D`
       )
       .then((response) => setData(response))
       .catch((err) => console.log(err));
-  }, []);
+  }, []); */
   useEffect(() => {
-    setFilterData(data?.data?.result);
-  }, [data?.data?.result]);
+    setFilterData(data);
+  }, [data]);
   const handleChange = (e) => {
-    const filter = data?.data?.result?.filter((response) =>
+    const filter = data?.filter((response) =>
       response?.name.toLowerCase().includes(e.target.value)
     );
     setFilterData(filter);
