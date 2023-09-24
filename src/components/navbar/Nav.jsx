@@ -34,8 +34,12 @@ const Nav = () => {
           </Link>
         </div>
 
-        {window.localStorage.getItem("order") ? (
-          <Link href={`/order/${localStorage.getItem("order")}`}>
+        {typeof window !== "undefined" && localStorage.getItem("order") ? (
+          <Link
+            href={`/order/${
+              typeof window !== "undefined" && localStorage.getItem("order")
+            }`}
+          >
             <TbPaperBag size={35} />
           </Link>
         ) : (

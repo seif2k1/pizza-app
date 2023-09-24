@@ -17,13 +17,13 @@ const page = ({ params }) => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
   const [windowDimension, setWindowDimension] = useState({
-    width: innerWidth,
-    height: innerHeight,
+    width: typeof window !== "undefined" && innerWidth,
+    height: typeof window !== "undefined" && innerHeight,
   });
   useEffect(() => {
     if (Data?.status > 3) {
-      localStorage.removeItem("order");
-      localStorage.removeItem("total");
+      typeof window !== "undefined" && localStorage.removeItem("order");
+      typeof window !== "undefined" && localStorage.removeItem("total");
       setBtn(true);
       setInterval(() => {
         setBtn(false);
@@ -44,14 +44,15 @@ const page = ({ params }) => {
 
   const detectSize = () => {
     setWindowDimension({
-      width: innerWidth,
-      height: innerHeight,
+      width: typeof window !== "undefined" && innerWidth,
+      height: typeof window !== "undefined" && innerHeight,
     });
   };
   useEffect(() => {
-    addEventListener("resize", detectSize);
+    typeof window !== "undefined" && addEventListener("resize", detectSize);
     return () => {
-      removeEventListener("resize", detectSize);
+      typeof window !== "undefined" &&
+        removeEventListener("resize", detectSize);
     };
   }, [windowDimension]);
   return (

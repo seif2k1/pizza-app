@@ -26,7 +26,7 @@ const Page = () => {
   const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   );
-  localStorage.setItem("total", newTotal());
+  typeof window !== "undefined" && localStorage.setItem("total", newTotal());
   const handleCheckout = async (e) => {
     e.preventDefault();
     putTotal;
@@ -51,13 +51,15 @@ const Page = () => {
 
   return (
     <>
-      {localStorage.getItem("order") ? (
+      {typeof window !== "undefined" && localStorage.getItem("order") ? (
         <div className="h-screen w-screen flex flex-col items-center justify-center gap-10">
           <h1>
             You cant add any order because you have an order in proccessing ....
           </h1>
           <Link
-            href={`/order/${localStorage.getItem("order")}`}
+            href={`/order/${
+              typeof window !== "undefined" && localStorage.getItem("order")
+            }`}
             className="bg-black text-white duration[1.1s] py-2 px-4 rounded-2xl"
           >
             See Your Order
