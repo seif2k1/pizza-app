@@ -15,7 +15,26 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+html {
+  scrollbar-width: normal;
+  scrollbar-color: #777 #555;
+}
 
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #777;
+  border-radius: 35px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 35px;
+}
+
+/* 
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -25,3 +44,4 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+ */
