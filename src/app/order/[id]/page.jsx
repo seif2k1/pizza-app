@@ -17,8 +17,8 @@ const page = ({ params }) => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products);
   const [windowDimension, setWindowDimension] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: innerWidth,
+    height: innerHeight,
   });
   useEffect(() => {
     if (Data?.status > 3) {
@@ -44,14 +44,14 @@ const page = ({ params }) => {
 
   const detectSize = () => {
     setWindowDimension({
-      width: window.innerWidth,
-      height: window.innerHeight,
+      width: innerWidth,
+      height: innerHeight,
     });
   };
   useEffect(() => {
-    window.addEventListener("resize", detectSize);
+    addEventListener("resize", detectSize);
     return () => {
-      window.removeEventListener("resize", detectSize);
+      removeEventListener("resize", detectSize);
     };
   }, [windowDimension]);
   return (
