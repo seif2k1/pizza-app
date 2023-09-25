@@ -1,6 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import Stripe from "stripe";
 
+const coreHeader = {
+  "Access-Control-Allow-Origin": "https://pizza-app-delivery.vercel.app",
+  "Access-Control-Allow-Methods": "GET,POST,PUT,PATCH,DELETE,OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: coreHeader });
+}
 export const POST = async (request) => {
   // @ts-ignore
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -35,11 +43,14 @@ export const POST = async (request) => {
       cancel_url: `${process.env.NEXTAUTH_URL}/cart`,
     });
 
-    return NextResponse.json({
-      message: "Connection is Active!",
-      success: true,
-      id: session.id,
-    });
+    return NextResponse.json(
+      {
+        message: "Connection is Active!",
+        success: true,
+        id: session.id,
+      },
+      { headers: coreHeader }
+    );
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
